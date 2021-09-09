@@ -1,4 +1,4 @@
-import { makeStyles, Typography } from "@material-ui/core"
+import { makeStyles, Typography, useTheme } from "@material-ui/core"
 import { EditorState } from "draft-js"
 // @ts-ignore
 import { stateToMarkdown } from "draft-js-export-markdown"
@@ -23,6 +23,17 @@ const useStyles = makeStyles(theme => ({
     position: "relative",
     "& .rdw-editor-toolbar": {
       border: 0,
+      backgroundColor: `rgba(0, 0, 0, 0) !important`,
+    },
+    "& .rdw-link-modal": {
+      backgroundColor: theme.palette.background.paper,
+    },
+    "& .rdw-option-wrapper": {
+      background: `rgba(0, 0, 0, 0) !important`,
+      "& img": {
+        filter:
+          theme.palette.type === "dark" ? `brightness(0) invert(1)` : undefined,
+      },
     },
   },
   wrapper: {
@@ -37,13 +48,16 @@ const useStyles = makeStyles(theme => ({
   editor: {
     paddingLeft: 20,
     paddingRight: 20,
-    borderTop: `1px solid ${theme.palette.background.paper}`,
+    borderTop: `1px solid ${theme.palette.divider}`,
     minHeight: 100,
   },
   label: {
-    color: theme.palette.grey[600],
+    color: theme.palette.text.primary,
     position: "absolute",
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: (props: RichTextEditorProps) =>
+      props.onPaper
+        ? theme.palette.background.paper
+        : theme.palette.background.default,
     paddingLeft: 4,
     paddingRight: 4,
     left: 10,
@@ -52,9 +66,7 @@ const useStyles = makeStyles(theme => ({
       color: theme.palette.primary.main,
     },
   },
-  toolbar: {
-    backgroundColor: theme.palette.background.default,
-  },
+  toolbar: {},
 }))
 
 export interface RichTextEditorProps {
@@ -62,10 +74,10 @@ export interface RichTextEditorProps {
   onChange: (value: string) => void
   label: string
   required?: boolean
-  placedOnWhite?: boolean
+  onPaper?: boolean
 }
 export const RichTextEditor = (props: RichTextEditorProps) => {
-  const classes = useStyles()
+  const classes = useStyles(props)
 
   let value = props.value
   value = value === undefined ? "" : value
@@ -99,11 +111,17 @@ export const RichTextEditor = (props: RichTextEditorProps) => {
   }
   let focusCss = hasFocus ? " focus" : ""
 
+  const theme = useTheme()
+
   return (
     <div className={classes.root}>
       <Typography
         className={classes.label + focusCss}
-        style={{ backgroundColor: props.placedOnWhite ? "white" : undefined }}
+        style={{
+          backgroundColor: props.onPaper
+            ? theme.palette.background.paper
+            : undefined,
+        }}
         variant="caption"
       >
         {label} {props.required && "*"}
