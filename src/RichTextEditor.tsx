@@ -4,19 +4,9 @@ import { EditorState } from "draft-js"
 import { stateToMarkdown } from "draft-js-export-markdown"
 // @ts-ignore
 import { stateFromMarkdown } from "draft-js-import-markdown"
-import React from "react"
+import React, { useMemo } from "react"
 import { Editor } from "react-draft-wysiwyg"
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
-
-const TOOLBAR = {
-  options: ["inline", "list", "link"],
-  inline: {
-    options: ["bold", "italic", "underline", "monospace"],
-  },
-  list: {
-    options: ["unordered", "ordered"],
-  },
-}
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,6 +25,9 @@ const useStyles = makeStyles(theme => ({
           theme.palette.type === "dark" ? `brightness(0) invert(1)` : undefined,
       },
     },
+    "& .public-DraftEditor-content": {
+      minHeight: 100,
+    },
   },
   wrapper: {
     borderRadius: 3,
@@ -49,7 +42,6 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: 20,
     paddingRight: 20,
     borderTop: `1px solid ${theme.palette.divider}`,
-    minHeight: 100,
   },
   label: {
     color: theme.palette.text.secondary,
@@ -75,6 +67,7 @@ export interface RichTextEditorProps {
   label?: string
   required?: boolean
   onPaper?: boolean
+  includeLink?: boolean
 }
 export const RichTextEditor = (props: RichTextEditorProps) => {
   const classes = useStyles(props)
@@ -113,6 +106,22 @@ export const RichTextEditor = (props: RichTextEditorProps) => {
 
   const theme = useTheme()
 
+  const toolbar = useMemo(() => {
+    const toolbarOptions = {
+      options: ["inline", "list"],
+      inline: {
+        options: ["bold", "italic", "underline", "monospace"],
+      },
+      list: {
+        options: ["unordered", "ordered"],
+      },
+    }
+    if (props.includeLink) {
+      toolbarOptions.options.push("link")
+    }
+    return toolbarOptions
+  }, [props.includeLink])
+
   return (
     <div className={classes.root}>
       {props.label !== undefined ? (
@@ -137,7 +146,7 @@ export const RichTextEditor = (props: RichTextEditorProps) => {
           onEditorStateChange={onEditorStateChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          toolbar={TOOLBAR}
+          toolbar={toolbar}
           toolbarClassName={classes.toolbar}
         />
       </Typography>
