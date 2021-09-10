@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/claytonfbell/material-ui-markdown-rich-editor/compare/v0.1.3...v0.1.4) (2021-09-10)
+
+
+### Bug Fixes
+
+* links are optional, adjusted min height to behave better ([25aa6b3](https://github.com/claytonfbell/material-ui-markdown-rich-editor/commit/25aa6b351431872b0c92cd2ddc5086267bbf8e13))
+
 ### [0.1.3](https://github.com/claytonfbell/material-ui-markdown-rich-editor/compare/v0.1.2...v0.1.3) (2021-09-10)
 
 
