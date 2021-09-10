@@ -53,7 +53,7 @@ function MyExample() {
             onPaper
             value={value}
             onChange={v => setValue(v)}
-            label="Hello"
+            label="Hello World"
           />
         </Box>
       </Paper>

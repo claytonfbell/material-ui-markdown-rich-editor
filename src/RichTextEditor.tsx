@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => ({
     minHeight: 100,
   },
   label: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.secondary,
     position: "absolute",
     backgroundColor: (props: RichTextEditorProps) =>
       props.onPaper
@@ -72,7 +72,7 @@ const useStyles = makeStyles(theme => ({
 export interface RichTextEditorProps {
   value: string
   onChange: (value: string) => void
-  label: string
+  label?: string
   required?: boolean
   onPaper?: boolean
 }
@@ -115,18 +115,20 @@ export const RichTextEditor = (props: RichTextEditorProps) => {
 
   return (
     <div className={classes.root}>
-      <Typography
-        className={classes.label + focusCss}
-        style={{
-          backgroundColor: props.onPaper
-            ? theme.palette.background.paper
-            : undefined,
-        }}
-        variant="caption"
-      >
-        {label} {props.required && "*"}
-        {charLength > 1000 ? ` (${charLength} characters)` : ""}
-      </Typography>
+      {props.label !== undefined ? (
+        <Typography
+          className={classes.label + focusCss}
+          style={{
+            backgroundColor: props.onPaper
+              ? theme.palette.background.paper
+              : undefined,
+          }}
+          variant="caption"
+        >
+          {label} {props.required && "*"}
+          {charLength > 1000 ? ` (${charLength} characters)` : ""}
+        </Typography>
+      ) : null}
       <Typography component="div">
         <Editor
           editorState={editorState}
