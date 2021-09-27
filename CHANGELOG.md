@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/claytonfbell/material-ui-markdown-rich-editor/compare/v0.1.4...v0.1.5) (2021-09-27)
+
+
+### Features
+
+* removed underline by default, better styling on dark theme, updated dependencies ([5c56e49](https://github.com/claytonfbell/material-ui-markdown-rich-editor/commit/5c56e493707b762d12a56a9af79ea241dd688a05))
+
 ### [0.1.4](https://github.com/claytonfbell/material-ui-markdown-rich-editor/compare/v0.1.3...v0.1.4) (2021-09-10)
 
 
