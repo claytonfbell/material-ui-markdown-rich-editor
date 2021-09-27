@@ -42,6 +42,8 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: 20,
     paddingRight: 20,
     borderTop: `1px solid ${theme.palette.divider}`,
+    backgroundColor: "#ffffff",
+    color: "#000000",
   },
   label: {
     color: theme.palette.text.secondary,
@@ -68,6 +70,7 @@ export interface RichTextEditorProps {
   required?: boolean
   onPaper?: boolean
   includeLink?: boolean
+  includeUnderline?: boolean
 }
 export const RichTextEditor = (props: RichTextEditorProps) => {
   const classes = useStyles(props)
@@ -107,10 +110,15 @@ export const RichTextEditor = (props: RichTextEditorProps) => {
   const theme = useTheme()
 
   const toolbar = useMemo(() => {
+    const options = ["bold", "italic", "underline", "monospace"]
+    if (props.includeUnderline !== true) {
+      options.splice(2, 1)
+    }
+
     const toolbarOptions = {
       options: ["inline", "list"],
       inline: {
-        options: ["bold", "italic", "underline", "monospace"],
+        options,
       },
       list: {
         options: ["unordered", "ordered"],
@@ -120,7 +128,7 @@ export const RichTextEditor = (props: RichTextEditorProps) => {
       toolbarOptions.options.push("link")
     }
     return toolbarOptions
-  }, [props.includeLink])
+  }, [props.includeLink, props.includeUnderline])
 
   return (
     <div className={classes.root}>
