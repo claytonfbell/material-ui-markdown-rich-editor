@@ -1,11 +1,13 @@
 import {
   Box,
   Container,
+  createTheme,
   CssBaseline,
   Paper,
   TextField,
-} from "@material-ui/core"
-import { ThemeProvider } from "@material-ui/core/styles"
+  ThemeProvider,
+  useTheme,
+} from "@mui/material"
 import { RichTextEditor } from "material-ui-markdown-rich-editor"
 import {
   DarkModeProvider,
@@ -38,25 +40,29 @@ function MyThemeProvider(props: { children: React.ReactNode }) {
   const myTheme = createMuiThemeWithDarkMode({
     palette: { secondary: { main: "#009900" } },
   })
+  //   const myTheme = createTheme({
+  //     palette: { mode: "dark", background: { paper: "green" } },
+  //   })
   return <ThemeProvider theme={myTheme}>{props.children}</ThemeProvider>
 }
 
 function MyExample() {
   const [value, setValue] = React.useState("**hello** test")
+  const theme = useTheme()
   return (
     <>
       <TextField variant="outlined" label="hello" value="test" />
       <Spacer />
-      <Paper>
-        <Box padding={4}>
-          <RichTextEditor
-            onPaper
-            value={value}
-            onChange={v => setValue(v)}
-            label="Hello World"
-          />
-        </Box>
-      </Paper>
+      default = {theme.palette.background.default}
+      paper = {theme.palette.background.paper}
+      <Box padding={4} sx={{ backgroundColor: theme.palette.background.paper }}>
+        <RichTextEditor
+          onPaper
+          value={value}
+          onChange={v => setValue(v)}
+          label="Hello World"
+        />
+      </Box>
     </>
   )
 }
