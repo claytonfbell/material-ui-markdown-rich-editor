@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.1.1](https://github.com/claytonfbell/material-ui-markdown-rich-editor/compare/v5.1.0...v5.1.1) (2023-01-03)
+
+
+### Bug Fixes
+
+* lock dependency versions (safari broken) ([53260f9](https://github.com/claytonfbell/material-ui-markdown-rich-editor/commit/53260f9445edc4de481f54d30e08ec5cd1d720d8))
+
 ## [5.1.0](https://github.com/claytonfbell/material-ui-markdown-rich-editor/compare/v5.0.0...v5.1.0) (2022-01-18)
 
 
